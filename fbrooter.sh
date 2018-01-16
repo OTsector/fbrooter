@@ -47,10 +47,10 @@ if [[ $wordlist = "" ]]; then
 	echo -e "\tsorry, but select a file location for select wordlist is too important!\n"
 	exit 0
 fi
-if [[ ${passlist:00:01} = "~" ]]; then
-	passlist=$HOME${passlist:1}
+if [[ ${wordlist:00:01} = "~" ]]; then
+	passlist=$HOME${wordlist:1}
 fi
-if [ ! -f $passlist ]; then
+if [ ! -f $wordlist ]; then
 	echo -e "\terror: wrong file location!\n"
 	exit 0
 fi
