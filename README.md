@@ -28,4 +28,4 @@
 	sudo wget https://raw.githubusercontent.com/OTsector/fbrooter/master/fbrooter.sh -O /usr/bin/fbrooter
 	sudo chmod +x /usr/bin/fbrooter
 ## One line command:
-	sudo wget https://raw.githubusercontent.com/OTsector/fbrooter/master/fbrooterp.sh -O /usr/bin/fbrooter && sudo chmod +x /usr/bin/fbrooter
+	sudo wget https://raw.githubusercontent.com/OTsector/fbrooter/master/fbrooter.sh -O /usr/bin/fbrooter && sudo chmod +x /usr/bin/fbrooter
