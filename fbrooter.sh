@@ -48,9 +48,9 @@ if [[ $wordlist = "" ]]; then
 	exit 0
 fi
 if [[ ${wordlist:00:01} = "~" ]]; then
-	passlist=$HOME${wordlist:1}
+	wordlist=$HOME${wordlist:1}
 fi
-if [ ! -f $wordlist ]; then
+if ! [ -f $wordlist ]; then
 	echo -e "\terror: wrong file location!\n"
 	exit 0
 fi
